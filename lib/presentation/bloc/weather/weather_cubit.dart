@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:own_inbox_app/data/params/weather_param.dart';
-import 'package:own_inbox_app/domain/entities/coordinate/coordinate.dart';
-import 'package:own_inbox_app/domain/entities/weather/weather.dart';
-import 'package:own_inbox_app/domain/use_cases/get_coordinate_use_case.dart';
-import 'package:own_inbox_app/domain/use_cases/get_weather_use_case.dart';
-import 'package:own_inbox_app/presentation/enums/loading_status.dart';
+import 'package:weather_app/data/params/weather_param.dart';
+import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
+import 'package:weather_app/domain/entities/weather/weather.dart';
+import 'package:weather_app/domain/use_cases/get_coordinate_use_case.dart';
+import 'package:weather_app/domain/use_cases/get_weather_use_case.dart';
+import 'package:weather_app/presentation/enums/loading_status.dart';
 
 part 'weather_cubit.freezed.dart';
 part 'weather_state.dart';

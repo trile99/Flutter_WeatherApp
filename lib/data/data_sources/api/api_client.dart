@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:own_inbox_app/data/data_sources/api/api_resources.dart';
-import 'package:own_inbox_app/domain/entities/coordinate/coordinate.dart';
-import 'package:own_inbox_app/domain/entities/weather/weather.dart';
-import 'package:own_inbox_app/global/app_constants.dart';
+import 'package:weather_app/data/data_sources/api/api_resources.dart';
+import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
+import 'package:weather_app/domain/entities/weather/weather.dart';
+import 'package:weather_app/global/app_constants.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';

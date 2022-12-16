@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
-import 'package:own_inbox_app/common/resources/app_text_styles.dart';
-import 'package:own_inbox_app/router/app_router.dart';
-import 'package:own_inbox_app/router/navigator.dart';
+import 'package:weather_app/common/resources/app_text_styles.dart';
+import 'package:weather_app/router/app_router.dart';
+import 'package:weather_app/router/navigator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});

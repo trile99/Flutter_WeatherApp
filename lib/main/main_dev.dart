@@ -1,4 +1,4 @@
-import 'package:own_inbox_app/config/evn_config.dart';
+import 'package:weather_app/config/evn_config.dart';
 
 import 'main_base.dart';
 

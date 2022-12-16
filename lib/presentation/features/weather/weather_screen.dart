@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:own_inbox_app/injection/injector.dart';
-import 'package:own_inbox_app/presentation/bloc/weather/weather_cubit.dart';
-import 'package:own_inbox_app/presentation/enums/loading_status.dart';
+import 'package:weather_app/injection/injector.dart';
+import 'package:weather_app/presentation/bloc/weather/weather_cubit.dart';
+import 'package:weather_app/presentation/enums/loading_status.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -37,7 +37,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         builder: ((BuildContext context, WeatherState state) {
           final String cityName = state.coordinate?.first.localName?.en ?? '';
           final String temp =
-              '${state.weather?.main?.temp?.round()}\u00B0' ?? '';
+              '${state.weather?.main?.temp?.round()}\u00B0';
           final String main = state.weather?.forecast?.first.main ?? '';
           final int maxTemp = state.weather?.main?.tempMax?.round() ?? 0;
           final int lowTemp = state.weather?.main?.tempMin?.round() ?? 0;

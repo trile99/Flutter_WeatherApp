@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:own_inbox_app/common/resources/app_colors.dart';
-import 'package:own_inbox_app/common/resources/app_fonts.dart';
+import 'package:weather_app/common/resources/app_fonts.dart';
+import 'app_colors.dart';
 
 class AppTextStyles {
   static const TextStyle blackS12W700 = TextStyle(

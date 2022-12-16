@@ -1,4 +1,4 @@
-import 'package:own_inbox_app/data/data_sources/api/api_resources.dart';
+import 'package:weather_app/data/data_sources/api/api_resources.dart';
 
 enum Environment { dev, stg, qa, prod, mock }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:own_inbox_app/presentation/features/weather/weather_screen.dart';
-import 'package:own_inbox_app/router/app_router.dart';
-import 'package:own_inbox_app/router/navigator.dart';
+import 'package:weather_app/presentation/features/weather/weather_screen.dart';
+import 'package:weather_app/router/app_router.dart';
+import 'package:weather_app/router/navigator.dart';
 
 import 'generated/l10n.dart';
 

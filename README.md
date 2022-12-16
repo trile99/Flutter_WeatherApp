@@ -1,4 +1,4 @@
-# own_inbox_app
+# weather_app
 
 A new Flutter project.
 

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/own_inbox_app.iml" filepath="$PROJECT_DIR$/own_inbox_app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/own_inbox_app_android.iml" filepath="$PROJECT_DIR$/android/own_inbox_app_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weather_app.iml" filepath="$PROJECT_DIR$/weather_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/weather_app_android.iml" filepath="$PROJECT_DIR$/android/weather_app_android.iml" />
     </modules>
   </component>
 </project>

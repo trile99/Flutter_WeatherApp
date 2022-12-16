@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:own_inbox_app/presentation/features/auth/login/pages/login_page.dart';
-import 'package:own_inbox_app/presentation/features/home/pages/home_page.dart';
-import 'package:own_inbox_app/presentation/features/weather/weather_screen.dart';
+import 'package:weather_app/presentation/features/auth/login/pages/login_page.dart';
+import 'package:weather_app/presentation/features/home/pages/home_page.dart';
+import 'package:weather_app/presentation/features/weather/weather_screen.dart';
 
 class RouterName {
   static const String home = '/home';
