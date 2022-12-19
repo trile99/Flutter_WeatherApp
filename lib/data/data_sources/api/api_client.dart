@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
 import 'package:weather_app/data/data_sources/api/api_resources.dart';
 import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
 import 'package:weather_app/domain/entities/weather/weather.dart';
 import 'package:weather_app/global/app_constants.dart';
-import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';
 
