@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/injection/injector.dart';
 import 'package:weather_app/presentation/bloc/weather/weather_cubit.dart';
 import 'package:weather_app/presentation/enums/loading_status.dart';
+import 'package:weather_app/presentation/features/weather/widgets/current_weather.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -29,35 +30,32 @@ class _WeatherScreenState extends State<WeatherScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer(
-        bloc: _weatherCubit,
-        listener: (BuildContext context, WeatherState state) {
-          listenAction(state.loadingStatus);
-        },
-        builder: ((BuildContext context, WeatherState state) {
-          final String cityName = state.coordinate?.first.localName?.en ?? '';
-          final String temp =
-              '${state.weather?.main?.temp?.round()}\u00B0';
-          final String main = state.weather?.forecast?.first.main ?? '';
-          final int maxTemp = state.weather?.main?.tempMax?.round() ?? 0;
-          final int lowTemp = state.weather?.main?.tempMin?.round() ?? 0;
-          final String highAndLowTemp = 'H:$maxTemp\u00B0 L:$lowTemp\u00B0';
-
-          return SafeArea(
-            child: Center(
-              child: Column(
-                children: [
-                  Text(cityName),
-                  Image.network(
-                      'http://openweathermap.org/img/wn/${state.weather?.forecast?.first.icon}@2x.png'),
-                  Text(temp),
-                  Text(main),
-                  Text(highAndLowTemp),
-                ],
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: <Color>[Colors.purple, Colors.blue],
+          ),
+        ),
+        child: BlocConsumer(
+          bloc: _weatherCubit,
+          listener: (BuildContext context, WeatherState state) {
+            listenAction(state.loadingStatus);
+          },
+          builder: ((BuildContext context, WeatherState state) {
+            return SafeArea(
+              child: Center(
+                child: (state.coordinate != null && state.weather != null)
+                    ? CurrentWeather(
+                        coordinate: state.coordinate!.first,
+                        weather: state.weather!,
+                      )
+                    : const CircularProgressIndicator(),
               ),
-            ),
-          );
-        }),
+            );
+          }),
+        ),
       ),
     );
   }
@@ -80,8 +78,4 @@ class _WeatherScreenState extends State<WeatherScreen> {
         break;
     }
   }
-
-// Future<Joke?> getCoordinate(String category) async {
-//   return await _weatherCubit.getCoordinate(category);
-// }
 }

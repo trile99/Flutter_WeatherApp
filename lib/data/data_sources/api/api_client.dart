@@ -7,14 +7,14 @@ import 'package:weather_app/global/app_constants.dart';
 
 part 'api_client.g.dart';
 
-@RestApi(baseUrl: ApiResources.baseURL)
-abstract class WeatherApi {
-  factory WeatherApi(
+@RestApi(baseUrl: ApiResources.devBaseURL)
+abstract class ApiClient {
+  factory ApiClient(
     Dio dio, {
     String baseUrl,
-  }) = _WeatherApi;
+  }) = _ApiClient;
 
-  static const Type client = _WeatherApi;
+  static const Type client = _ApiClient;
 
   @GET('/geo/1.0/direct')
   Future<List<Coordinate>?> getCoordinate(
@@ -26,7 +26,7 @@ abstract class WeatherApi {
   Future<Weather> getWeather(
     @Query('lat') double lat,
     @Query('lon') double lon, {
+    @Query('units') String units = AppConstants.unit,
     @Query('appid') String appId = AppConstants.appId,
-    @Query('units') String a = AppConstants.unit,
   });
 }

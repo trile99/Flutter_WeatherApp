@@ -7,8 +7,7 @@ class RepositoryInjection {
   static void inject() {
     injector.registerLazySingleton<WeatherRepositories>(
       () => WeatherRepositoryImp(
-        injector.get<WeatherApi>(),
-        injector.get<WeatherApi>(),
+        injector.get<ApiClient>(),
       ),
     );
   }

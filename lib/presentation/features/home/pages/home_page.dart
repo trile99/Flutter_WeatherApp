@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
             Text(
               '$_counter Body Large',
               // style: GoogleFonts.openSans(),
-              style: AppTextStyles.blackS12W700.copyWith(fontSize: 20),
+              style: AppTextStyles.whiteS18W400.copyWith(fontSize: 20),
             ),
           ],
         ),

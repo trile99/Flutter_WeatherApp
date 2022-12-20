@@ -3,31 +3,24 @@ import 'package:weather_app/data/data_sources/api/api_resources.dart';
 enum Environment { dev, stg, qa, prod, mock }
 
 class EnvConfig {
-  EnvConfig.production()
-      : environment = Environment.prod,
-        getGeoApi = ApiResources.prodBaseUrl;
-
-  EnvConfig.mock()
-      : environment = Environment.mock,
-        getGeoApi = ApiResources.getIconApi;
-
-  EnvConfig.qa()
-      : environment = Environment.qa,
-        getGeoApi = ApiResources.qaBaseUrl;
+  EnvConfig.development()
+      : environment = Environment.dev,
+        baseURL = ApiResources.devBaseURL;
 
   EnvConfig.staging()
       : environment = Environment.stg,
-        getGeoApi = ApiResources.baseURL,
-        getWeatherApi = ApiResources.getIconApi;
+        baseURL = ApiResources.stgBaseURL;
 
-  EnvConfig.development()
-      : environment = Environment.dev,
-        getGeoApi = ApiResources.baseURL,
-        getWeatherApi = ApiResources.getIconApi;
+  EnvConfig.qa()
+      : environment = Environment.qa,
+        baseURL = ApiResources.qaBaseUrl;
+
+  EnvConfig.production()
+      : environment = Environment.prod,
+        baseURL = ApiResources.prodBaseUrl;
 
   late Environment environment;
-  late String getGeoApi;
-  late String getWeatherApi;
+  late String baseURL;
 
   bool get isDevelopment => environment == Environment.dev;
 

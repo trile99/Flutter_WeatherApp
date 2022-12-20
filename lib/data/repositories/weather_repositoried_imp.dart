@@ -4,17 +4,16 @@ import 'package:weather_app/domain/entities/weather/weather.dart';
 import 'package:weather_app/domain/repositories/weather_repositories.dart';
 
 class WeatherRepositoryImp extends WeatherRepositories {
-  WeatherRepositoryImp(this._geoAPI, this._weatherAPI);
-  final WeatherApi _geoAPI;
-  final WeatherApi _weatherAPI;
+  WeatherRepositoryImp(this._apiClient);
+  final ApiClient _apiClient;
 
   @override
   Future<List<Coordinate>?> getCoordinate(String cityName) async {
-    return await _geoAPI.getCoordinate(cityName);
+    return await _apiClient.getCoordinate(cityName);
   }
 
   @override
   Future<Weather?> getWeather(double lat, double lon) async {
-    return await _weatherAPI.getWeather(lat, lon);
+    return await _apiClient.getWeather(lat, lon);
   }
 }
