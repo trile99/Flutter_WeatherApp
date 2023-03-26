@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
 import 'package:weather_app/domain/entities/weather/current_weather.dart';
@@ -21,9 +22,21 @@ class CurrentWeatherWidget extends StatelessWidget {
           coordinate.cityName,
           style: AppTextStyles.whiteS30W400,
         ),
-        Text(
-          '${currentWeather.currentTemp}\u00B0',
-          style: AppTextStyles.whiteS60W400,
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Text(
+              '${currentWeather.currentTemp}',
+              style: AppTextStyles.whiteS60W400,
+            ),
+            Positioned(
+              right: -35,
+              child: Text(
+                '\u00B0',
+                style: AppTextStyles.whiteS60W400,
+              ),
+            )
+          ],
         ),
         Text(
           currentWeather.description,
