@@ -70,14 +70,14 @@ class _HomePageState extends State<HomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               'You have pushed the button this many times:',
               // style: GoogleFonts.openSans(),
             ),
             Text(
               '$_counter Body Large',
               // style: GoogleFonts.openSans(),
-              style: AppTextStyles.whiteS18W400.copyWith(fontSize: 20),
+              style: AppTextStyles.whiteS20W400.copyWith(fontSize: 20),
             ),
           ],
         ),

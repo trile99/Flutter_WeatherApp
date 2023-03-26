@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:weather_app/data/data_sources/api/api_resources.dart';
 import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
-import 'package:weather_app/domain/entities/weather/weather.dart';
+import 'package:weather_app/domain/entities/forecast/forecasts.dart';
+import 'package:weather_app/domain/entities/weather/current_weather.dart';
 import 'package:weather_app/global/app_constants.dart';
 
 part 'api_client.g.dart';
@@ -23,7 +24,15 @@ abstract class ApiClient {
   });
 
   @GET('/data/2.5/weather')
-  Future<Weather> getWeather(
+  Future<CurrentWeather> getWeather(
+    @Query('lat') double lat,
+    @Query('lon') double lon, {
+    @Query('units') String units = AppConstants.unit,
+    @Query('appid') String appId = AppConstants.appId,
+  });
+
+  @GET('/data/2.5/forecast')
+  Future<Forecasts> getForecast(
     @Query('lat') double lat,
     @Query('lon') double lon, {
     @Query('units') String units = AppConstants.unit,

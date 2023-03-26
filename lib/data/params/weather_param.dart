@@ -1,5 +1,5 @@
-class WeatherParam {
-  const WeatherParam({
+class LatLonParam {
+  const LatLonParam({
     required this.lat,
     required this.lon,
   });
