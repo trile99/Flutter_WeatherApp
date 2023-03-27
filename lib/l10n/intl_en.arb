@@ -1,4 +1,5 @@
 {
-  "youHavePushed":"You have pushed the button this many times:",
-  "increment" : "Increment"
+    "@@locale" : "en",
+    "todayForecast": "Today Forecast",
+    "next5DayForecast" : "5-Day Forecast"
 }

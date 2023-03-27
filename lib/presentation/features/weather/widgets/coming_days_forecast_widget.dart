@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/helpers/function_helper.dart';
 import 'package:weather_app/common/resources/app_colors.dart';
+import 'package:weather_app/common/resources/app_strings.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/forecast/forecasts.dart';
 
@@ -28,7 +29,7 @@ class ComingDaysForecastWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 15.w),
               child: Text(
-                '5-Day Forecast',
+                AppStrings.localized.next5DayForecast,
                 style: AppTextStyles.whiteS20W600,
               ),
             ),

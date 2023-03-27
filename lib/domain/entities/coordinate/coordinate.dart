@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:weather_app/common/resources/app_strings.dart';
 
 part 'coordinate.freezed.dart';
 
@@ -19,7 +20,16 @@ class Coordinate with _$Coordinate {
   factory Coordinate.fromJson(Map<String, dynamic> json) =>
       _$CoordinateFromJson(json);
 
-  String get cityName => localName.en;
+  String get cityName {
+    switch (AppStrings.appLocale){
+      case 'vi':
+        return localName.vi;
+      case 'ja':
+        return localName.ja;
+      default:
+        return localName.en;
+    }
+  }
 }
 
 @Freezed(toJson: false)
@@ -27,7 +37,7 @@ class LocalName with _$LocalName {
   const factory LocalName({
     @Default('') String en,
     @Default('') String vi,
-    @Default('') String ko,
+    @Default('') String ja,
   }) = _LocalName;
 
   factory LocalName.fromJson(Map<String, dynamic> json) =>

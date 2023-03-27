@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/resources/app_colors.dart';
+import 'package:weather_app/common/resources/app_strings.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/forecast/forecasts.dart';
 import 'package:weather_app/presentation/features/weather/widgets/today_forecast_horizontal_list_widget.dart';
@@ -28,7 +29,7 @@ class TodayForecastWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Text(
-                'Today Forecast',
+                AppStrings.localized.todayForecast,
                 style: AppTextStyles.whiteS20W600,
                 textAlign: TextAlign.left,
               ),

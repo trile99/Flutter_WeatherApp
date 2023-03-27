@@ -50,21 +50,21 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `You have pushed the button this many times:`
-  String get youHavePushed {
+  /// `Today Forecast`
+  String get todayForecast {
     return Intl.message(
-      'You have pushed the button this many times:',
-      name: 'youHavePushed',
+      'Today Forecast',
+      name: 'todayForecast',
       desc: '',
       args: [],
     );
   }
 
-  /// `Increment`
-  String get increment {
+  /// `5-Day Forecast`
+  String get next5DayForecast {
     return Intl.message(
-      'Increment',
-      name: 'increment',
+      '5-Day Forecast',
+      name: 'next5DayForecast',
       desc: '',
       args: [],
     );
@@ -77,6 +77,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ja'),
+      Locale.fromSubtags(languageCode: 'vi'),
     ];
   }
 

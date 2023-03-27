@@ -1,5 +1,6 @@
 import 'package:weather_app/generated/l10n.dart';
 
 class AppStrings {
-  S localized = S.current;
+  static final S localized = S.current;
+  static String appLocale = 'en';
 }
