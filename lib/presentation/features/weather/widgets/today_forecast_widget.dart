@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/resources/app_colors.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/forecast/forecasts.dart';
-import 'package:weather_app/presentation/features/weather/widgets/horizontal_list_view_widget.dart';
+import 'package:weather_app/presentation/features/weather/widgets/today_forecast_horizontal_list_widget.dart';
 
 class TodayForecastWidget extends StatelessWidget {
   const TodayForecastWidget({
@@ -37,7 +37,7 @@ class TodayForecastWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Divider(color: AppColors.white.withOpacity(0.5)),
             ),
-            HorizontalListViewWidget(forecastList: forecasts.todayForecastList),
+            TodayForecastHorizontalListWidget(forecastList: forecasts.todayForecastList),
           ],
         ),
       ),

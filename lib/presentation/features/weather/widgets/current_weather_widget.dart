@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
 import 'package:weather_app/domain/entities/weather/current_weather.dart';

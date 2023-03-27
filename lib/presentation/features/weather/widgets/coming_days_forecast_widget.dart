@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weather_app/common/helpers/function_helper.dart';
 import 'package:weather_app/common/resources/app_colors.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/forecast/forecasts.dart';
@@ -52,7 +53,7 @@ class ComingDaysForecastWidget extends StatelessWidget {
                         width: 70.w,
                         height: 70.w,
                         child: Image.network(
-                          'http://openweathermap.org/img/wn/${forecasts.maxTempForecastList[index].iconString}@2x.png',
+                          FunctionHelper.iconURL(forecasts.maxTempForecastList[index].iconString),
                           fit: BoxFit.fill,
                           errorBuilder: (context, error, stackTrace) =>
                               const CircularProgressIndicator(),

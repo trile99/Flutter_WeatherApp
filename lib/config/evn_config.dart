@@ -13,11 +13,11 @@ class EnvConfig {
 
   EnvConfig.qa()
       : environment = Environment.qa,
-        baseURL = ApiResources.qaBaseUrl;
+        baseURL = ApiResources.qaBaseURL;
 
   EnvConfig.production()
       : environment = Environment.prod,
-        baseURL = ApiResources.prodBaseUrl;
+        baseURL = ApiResources.prodBaseURL;
 
   late Environment environment;
   late String baseURL;

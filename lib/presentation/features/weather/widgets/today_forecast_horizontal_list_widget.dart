@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/extensions/int_extension.dart';
+import 'package:weather_app/common/helpers/function_helper.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/forecast/forecasts.dart';
 
-class HorizontalListViewWidget extends StatelessWidget {
-  const HorizontalListViewWidget({
+class TodayForecastHorizontalListWidget extends StatelessWidget {
+  const TodayForecastHorizontalListWidget({
     Key? key,
     required this.forecastList,
   }) : super(key: key);
@@ -33,7 +34,7 @@ class HorizontalListViewWidget extends StatelessWidget {
                     width: 70.w,
                     height: 70.w,
                     child: Image.network(
-                      'http://openweathermap.org/img/wn/${forecastList[i].iconString}@2x.png',
+                      FunctionHelper.iconURL(forecastList[i].iconString),
                       fit: BoxFit.fill,
                       errorBuilder: (context, error, stackTrace) =>
                           const CircularProgressIndicator(),
