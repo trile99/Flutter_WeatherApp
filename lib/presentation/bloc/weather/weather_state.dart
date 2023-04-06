@@ -6,8 +6,12 @@ class WeatherState with _$WeatherState {
     LoadingStatus? loadingStatus,
     @Default('danang') String cityName,
     List<Coordinate>? coordinate,
+    List<List<Coordinate>>? coordinateList,
     CurrentWeather? weather,
+    List<CurrentWeather>? weatherList,
     Forecasts? forecasts,
+    @Default(['danang']) List<String> cityNameList,
+    @Default(false) bool isFocus,
   }) = _WeatherState;
 
   factory WeatherState.initial() =>

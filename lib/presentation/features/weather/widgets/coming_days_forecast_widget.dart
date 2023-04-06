@@ -54,7 +54,8 @@ class ComingDaysForecastWidget extends StatelessWidget {
                         width: 70.w,
                         height: 70.w,
                         child: Image.network(
-                          FunctionHelper.iconURL(forecasts.maxTempForecastList[index].iconString),
+                          FunctionHelper.iconURL(
+                              forecasts.maxTempForecastList[index].iconString),
                           fit: BoxFit.fill,
                           errorBuilder: (context, error, stackTrace) =>
                               const CircularProgressIndicator(),

@@ -21,7 +21,7 @@ class Coordinate with _$Coordinate {
       _$CoordinateFromJson(json);
 
   String get cityName {
-    switch (AppStrings.appLocale){
+    switch (AppStrings.appLocale) {
       case 'vi':
         return localName.vi;
       case 'ja':

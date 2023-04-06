@@ -2,12 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/presentation/features/auth/login/pages/login_page.dart';
 import 'package:weather_app/presentation/features/home/pages/home_page.dart';
+import 'package:weather_app/presentation/features/search/search_screen.dart';
 import 'package:weather_app/presentation/features/weather/weather_screen.dart';
 
 class RouterName {
   static const String home = '/home';
   static const String login = '/login';
   static const String joke = '/getJoke';
+  static const String weather = '/weather';
+  static const String search = '/search';
 }
 
 class AppRoutes {
@@ -22,6 +25,10 @@ class AppRoutes {
         return _materialRoute(settings, const LoginPage());
       case RouterName.joke:
         return _materialRoute(settings, const WeatherScreen());
+      case RouterName.weather:
+        return _materialRoute(settings, const WeatherScreen());
+      case RouterName.search:
+        return _materialRoute(settings, const SearchScreen());
     }
     return null;
   }

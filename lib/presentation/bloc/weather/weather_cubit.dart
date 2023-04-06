@@ -34,7 +34,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       emit(state.copyWith(
         loadingStatus: LoadingStatus.loading,
       ));
-      final response = await _getCoordinateUseCase(cityName);
+      final response = await _getCoordinateUseCase(cityName) ?? [];
       emit(state.copyWith(
         coordinate: response,
         loadingStatus: LoadingStatus.success,
@@ -50,19 +50,53 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  Future<CurrentWeather?> getWeather() async {
-    final List<Coordinate>? response = await getCoordinate('danang');
-    final LatLonParam latlonParam = LatLonParam(
-      lat: response?.first.lat ?? 0,
-      lon: response?.first.lon ?? 0,
-    );
+  Future<CurrentWeather?> getWeatherByCityName(String cityName) async {
     emit(state.copyWith(loadingStatus: LoadingStatus.initial));
+
+    final List<Coordinate> response = await getCoordinate(cityName) ?? [];
+
+    final List<List<Coordinate>> listCor =
+        List.from(state.coordinateList ?? []);
+
+    if (listCor.isEmpty) {
+      listCor.add(response);
+    } else {
+      final isEmpty = listCor
+          .where((element) => element.first.lat == response.first.lat)
+          .toList()
+          .isEmpty;
+      if (isEmpty) {
+        listCor.add(response);
+      }
+    }
+
+    final LatLonParam latlonParam = LatLonParam(
+      lat: response.first.lat,
+      lon: response.first.lon,
+    );
 
     try {
       emit(state.copyWith(loadingStatus: LoadingStatus.loading));
-      final response = await _getWeatherUseCase(latlonParam);
+      final response =
+          await _getWeatherUseCase(latlonParam) ?? CurrentWeather();
+      final List<CurrentWeather> listWeather =
+          List.from(state.weatherList?.toList() ?? []);
+
+      if (listWeather.isEmpty) {
+        listWeather.add(response);
+      } else {
+        final isEmpty = listWeather
+            .where((element) => element.coord.lat == response.coord.lat)
+            .toList()
+            .isEmpty;
+        if (isEmpty) {
+          listWeather.add(response);
+        }
+      }
       emit(state.copyWith(
         weather: response,
+        weatherList: listWeather,
+        coordinateList: listCor,
         loadingStatus: LoadingStatus.success,
       ));
 
@@ -74,8 +108,8 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  Future<Forecasts?> getForecast() async {
-    final List<Coordinate>? coordinates = await getCoordinate('danang');
+  Future<Forecasts?> getForecastByCityName(String cityName) async {
+    final List<Coordinate>? coordinates = await getCoordinate(cityName);
     final LatLonParam latLonParam = LatLonParam(
       lat: coordinates?.first.lat ?? 0,
       lon: coordinates?.first.lon ?? 0,
@@ -97,5 +131,11 @@ class WeatherCubit extends Cubit<WeatherState> {
 
       return null;
     }
+  }
+
+  void setFocusNode(bool isFocus) {
+    emit(state.copyWith(
+      isFocus: isFocus,
+    ));
   }
 }
