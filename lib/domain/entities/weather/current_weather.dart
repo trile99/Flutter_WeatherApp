@@ -7,7 +7,7 @@ part 'current_weather.g.dart';
 @Freezed(toJson: false)
 class CurrentWeather with _$CurrentWeather {
   factory CurrentWeather({
-    @Default(Coord()) Coord coord,
+    Coord? coord,
     @Default(<Weather>[]) @JsonKey(name: 'weather') List<Weather> weathers,
     @Default(Main()) Main main,
     @Default(Wind()) Wind wind,
@@ -34,12 +34,18 @@ class CurrentWeather with _$CurrentWeather {
 
 @Freezed(toJson: false)
 class Coord with _$Coord {
-  const factory Coord({
-    @Default(0.0) double lon,
+  factory Coord({
     @Default(0.0) double lat,
+    @Default(0.0) double lon,
   }) = _Coord;
 
+  Coord._();
+
   factory Coord.fromJson(Map<String, dynamic> json) => _$CoordFromJson(json);
+
+  double get roundLat => double.parse(lat.toStringAsFixed(2));
+
+  double get roundLon => double.parse(lon.toStringAsFixed(2));
 }
 
 @Freezed(toJson: false)

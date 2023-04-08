@@ -11,6 +11,7 @@ part 'forecasts.g.dart';
 class Forecasts with _$Forecasts {
   factory Forecasts({
     @Default(<Forecast>[]) @JsonKey(name: 'list') List<Forecast> forecastList,
+    City? city,
   }) = _Forecasts;
 
   Forecasts._();
@@ -67,8 +68,8 @@ class Forecast with _$Forecast {
     @Default(0) int dt,
     @Default(Main()) Main main,
     @Default(<Weather>[]) List<Weather> weather,
-    @Default(Wind()) Wind wind,
     @Default(Cloud()) @JsonKey(name: 'clouds') Cloud cloud,
+    @Default(Wind()) Wind wind,
   }) = _Forecast;
 
   Forecast._();
@@ -89,4 +90,15 @@ class Forecast with _$Forecast {
   String get weekdayName {
     return dt.fromEpochToDateTime.weekDayName;
   }
+}
+
+@Freezed(toJson: false)
+class City with _$City {
+  factory City({
+    Coord? coord,
+  }) = _City;
+
+  City._();
+
+  factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
 }

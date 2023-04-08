@@ -20,6 +20,10 @@ class Coordinate with _$Coordinate {
   factory Coordinate.fromJson(Map<String, dynamic> json) =>
       _$CoordinateFromJson(json);
 
+  double get roundLat => double.parse(lat.toStringAsFixed(2));
+
+  double get roundLon => double.parse(lon.toStringAsFixed(2));
+
   String get cityName {
     switch (AppStrings.appLocale) {
       case 'vi':

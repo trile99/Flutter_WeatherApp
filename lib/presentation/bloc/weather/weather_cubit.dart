@@ -25,7 +25,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   final GetWeatherUseCase _getWeatherUseCase;
   final GetForecastUseCase _getForecastUseCase;
 
-  Future<List<Coordinate>?> getCoordinate(String cityName) async {
+  Future<Coordinate?> getCoordinateByCityName(String cityName) async {
     emit(state.copyWith(
       loadingStatus: LoadingStatus.initial,
     ));
@@ -36,11 +36,11 @@ class WeatherCubit extends Cubit<WeatherState> {
       ));
       final response = await _getCoordinateUseCase(cityName) ?? [];
       emit(state.copyWith(
-        coordinate: response,
+        coordinate: response.first,
         loadingStatus: LoadingStatus.success,
       ));
 
-      return response;
+      return response.first;
     } catch (e) {
       emit(state.copyWith(
         loadingStatus: LoadingStatus.failed,
@@ -50,53 +50,19 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  Future<CurrentWeather?> getWeatherByCityName(String cityName) async {
-    emit(state.copyWith(loadingStatus: LoadingStatus.initial));
-
-    final List<Coordinate> response = await getCoordinate(cityName) ?? [];
-
-    final List<List<Coordinate>> listCor =
-        List.from(state.coordinateList ?? []);
-
-    if (listCor.isEmpty) {
-      listCor.add(response);
-    } else {
-      final isEmpty = listCor
-          .where((element) => element.first.lat == response.first.lat)
-          .toList()
-          .isEmpty;
-      if (isEmpty) {
-        listCor.add(response);
-      }
-    }
-
+  Future<CurrentWeather?> getWeatherByCoord(Coordinate coordinate) async {
     final LatLonParam latlonParam = LatLonParam(
-      lat: response.first.lat,
-      lon: response.first.lon,
+      lat: coordinate.lat,
+      lon: coordinate.lon,
     );
 
+    emit(state.copyWith(loadingStatus: LoadingStatus.initial));
     try {
       emit(state.copyWith(loadingStatus: LoadingStatus.loading));
-      final response =
-          await _getWeatherUseCase(latlonParam) ?? CurrentWeather();
-      final List<CurrentWeather> listWeather =
-          List.from(state.weatherList?.toList() ?? []);
+      final response = await _getWeatherUseCase(latlonParam);
 
-      if (listWeather.isEmpty) {
-        listWeather.add(response);
-      } else {
-        final isEmpty = listWeather
-            .where((element) => element.coord.lat == response.coord.lat)
-            .toList()
-            .isEmpty;
-        if (isEmpty) {
-          listWeather.add(response);
-        }
-      }
       emit(state.copyWith(
         weather: response,
-        weatherList: listWeather,
-        coordinateList: listCor,
         loadingStatus: LoadingStatus.success,
       ));
 
@@ -108,11 +74,10 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  Future<Forecasts?> getForecastByCityName(String cityName) async {
-    final List<Coordinate>? coordinates = await getCoordinate(cityName);
+  Future<Forecasts?> getForecastByCoord(Coordinate coordinate) async {
     final LatLonParam latLonParam = LatLonParam(
-      lat: coordinates?.first.lat ?? 0,
-      lon: coordinates?.first.lon ?? 0,
+      lat: coordinate.lat,
+      lon: coordinate.lon,
     );
 
     emit(state.copyWith(loadingStatus: LoadingStatus.initial));
@@ -133,9 +98,98 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  void setFocusNode(bool isFocus) {
+  void addCoordinateList(Coordinate coordinate) {
+    final List<Coordinate> coordinateList =
+        List<Coordinate>.from(state.coordinateList ?? []);
+
+    if (coordinateList.isEmpty) {
+      coordinateList.add(coordinate);
+    } else {
+      final isEmpty = coordinateList
+          .where((Coordinate element) => element.lat == coordinate.lat)
+          .toList()
+          .isEmpty;
+      if (isEmpty) {
+        coordinateList.add(coordinate);
+      }
+    }
+
     emit(state.copyWith(
-      isFocus: isFocus,
+      coordinateList: coordinateList,
+    ));
+  }
+
+  void addCurrentWeatherList(CurrentWeather currentWeather) {
+    final List<CurrentWeather> currentWeatherList =
+        List<CurrentWeather>.from(state.weatherList ?? []);
+
+    if (currentWeatherList.isEmpty) {
+      currentWeatherList.add(currentWeather);
+    } else {
+      final isEmpty = currentWeatherList
+          .where((CurrentWeather element) =>
+              element.coord?.lat == currentWeather.coord?.lat)
+          .toList()
+          .isEmpty;
+      if (isEmpty) {
+        currentWeatherList.add(currentWeather);
+      }
+    }
+
+    emit(state.copyWith(
+      weatherList: currentWeatherList,
+    ));
+  }
+
+  void addForecastList(Forecasts forecasts) {
+    final List<Forecasts> forecastList =
+        List<Forecasts>.from(state.forecastList ?? []);
+
+    if (forecastList.isEmpty) {
+      forecastList.add(forecasts);
+    } else {
+      final isEmpty = forecastList
+          .where((Forecasts element) =>
+              element.city?.coord?.lat == forecasts.city?.coord?.lat)
+          .toList()
+          .isEmpty;
+      if (isEmpty) {
+        forecastList.add(forecasts);
+      }
+    }
+
+    emit(state.copyWith(
+      forecastList: forecastList,
+    ));
+  }
+
+  Future<void> searchWeatherByCityName(String cityName) async {
+    final Coordinate coordinate =
+        await getCoordinateByCityName(cityName) ?? Coordinate();
+    addCoordinateList(coordinate);
+
+    final CurrentWeather currentWeather =
+        await getWeatherByCoord(coordinate) ?? CurrentWeather();
+    addCurrentWeatherList(currentWeather);
+
+    final Forecasts forecasts =
+        await getForecastByCoord(coordinate) ?? Forecasts();
+    addForecastList(forecasts);
+  }
+
+  void updateDisplayWeatherByCoordinate(Coordinate coordinate) {
+    Coordinate coord = List<Coordinate>.from(state.coordinateList!)
+        .firstWhere((element) => element.roundLat == coordinate.roundLat);
+    CurrentWeather curr = List<CurrentWeather>.from(state.weatherList!)
+        .firstWhere(
+            (element) => element.coord?.roundLat == coordinate.roundLat);
+    Forecasts forecasts = List<Forecasts>.from(state.forecastList!).firstWhere(
+        (element) => element.city?.coord?.roundLat == coordinate.roundLat);
+
+    emit(state.copyWith(
+      coordinate: coord,
+      weather: curr,
+      forecasts: forecasts,
     ));
   }
 }
