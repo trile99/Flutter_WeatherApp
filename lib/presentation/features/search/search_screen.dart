@@ -22,6 +22,14 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _weatherCubit.initialWeather();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
@@ -81,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           return GestureDetector(
                             onTap: () {
                               _weatherCubit.updateDisplayWeatherByCoordinate(
-                                  state.coordinateList![index] );
+                                  state.coordinateList![index]);
                               AppNavigator.pushNamed(RouterName.weather,
                                   arguments: state.coordinateList![index]);
                             },

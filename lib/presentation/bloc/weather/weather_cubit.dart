@@ -7,6 +7,7 @@ import 'package:weather_app/domain/entities/weather/current_weather.dart';
 import 'package:weather_app/domain/use_cases/get_coordinate_use_case.dart';
 import 'package:weather_app/domain/use_cases/get_forecast_use_case.dart';
 import 'package:weather_app/domain/use_cases/get_weather_use_case.dart';
+import 'package:weather_app/global/services/local_storage_service.dart';
 import 'package:weather_app/presentation/enums/loading_status.dart';
 
 part 'weather_cubit.freezed.dart';
@@ -17,13 +18,23 @@ class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(
     this._getCoordinateUseCase,
     this._getWeatherUseCase,
-    this._getForecastUseCase, {
+    this._getForecastUseCase,
+    this._localStorageServices, {
     WeatherState? initial,
   }) : super(initial ?? WeatherState(loadingStatus: LoadingStatus.initial));
 
   final GetCoordinateUseCase _getCoordinateUseCase;
   final GetWeatherUseCase _getWeatherUseCase;
   final GetForecastUseCase _getForecastUseCase;
+  final LocalStorageServices _localStorageServices;
+
+  Future<void> initialWeather() async {
+    final list = _localStorageServices.cityNameList;
+
+    for (String e in list) {
+      await searchWeatherByCityName(e);
+    }
+  }
 
   Future<Coordinate?> getCoordinateByCityName(String cityName) async {
     emit(state.copyWith(
@@ -98,7 +109,7 @@ class WeatherCubit extends Cubit<WeatherState> {
     }
   }
 
-  void addCoordinateList(Coordinate coordinate) {
+  Future<void> addCoordinateList(Coordinate coordinate) async {
     final List<Coordinate> coordinateList =
         List<Coordinate>.from(state.coordinateList ?? []);
 
@@ -113,6 +124,9 @@ class WeatherCubit extends Cubit<WeatherState> {
         coordinateList.add(coordinate);
       }
     }
+
+    await _localStorageServices
+        .setCityNameList(coordinateList.map((e) => e.name).toList());
 
     emit(state.copyWith(
       coordinateList: coordinateList,
@@ -166,7 +180,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   Future<void> searchWeatherByCityName(String cityName) async {
     final Coordinate coordinate =
         await getCoordinateByCityName(cityName) ?? Coordinate();
-    addCoordinateList(coordinate);
+    await addCoordinateList(coordinate);
 
     final CurrentWeather currentWeather =
         await getWeatherByCoord(coordinate) ?? CurrentWeather();

@@ -7,15 +7,15 @@ import 'package:weather_app/injection/use_case_injection.dart';
 GetIt injector = GetIt.instance;
 
 Future<void> initDependenciesInjection() async {
-  // infra
-  InfraInjection.inject();
+  // Infra
+  await InfraInjection.inject();
 
-  // repositories
+  // Repositories
   RepositoryInjection.inject();
 
-  // use case
+  // Use case
   UserCaseInjection.inject();
 
-  // cubit
-  BlocInjection.inject();
+  // Cubit
+  CubitInjection.inject();
 }

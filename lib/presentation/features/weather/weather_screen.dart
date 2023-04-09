@@ -12,7 +12,6 @@ import 'package:weather_app/presentation/enums/loading_status.dart';
 import 'package:weather_app/presentation/features/weather/widgets/coming_days_forecast_widget.dart';
 import 'package:weather_app/presentation/features/weather/widgets/current_weather_widget.dart';
 import 'package:weather_app/presentation/features/weather/widgets/today_forecast_widget.dart';
-import 'package:weather_app/router/app_router.dart';
 import 'package:weather_app/router/navigator.dart';
 
 class WeatherScreen extends StatefulWidget {
