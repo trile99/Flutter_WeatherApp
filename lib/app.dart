@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_app/common/resources/app_strings.dart';
-import 'package:weather_app/presentation/features/search/search_screen.dart';
 import 'package:weather_app/router/app_router.dart';
 import 'package:weather_app/router/navigator.dart';
 
@@ -21,7 +20,6 @@ class MyApp extends StatelessWidget {
         return GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: MaterialApp(
-            home: const SearchScreen(),
             debugShowCheckedModeBanner: false,
             navigatorKey: AppNavigator.navigatorKey,
             onGenerateRoute: AppRoutes.onGenerateRoutes,

@@ -15,7 +15,12 @@ import 'package:weather_app/presentation/features/weather/widgets/today_forecast
 import 'package:weather_app/router/navigator.dart';
 
 class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({super.key});
+  const WeatherScreen({
+    super.key,
+    this.indexHero,
+  });
+
+  final int? indexHero;
 
   @override
   State<WeatherScreen> createState() => _WeatherScreenState();
@@ -26,67 +31,74 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.black,
-      appBar: AppBar(
-        backgroundColor: AppColors.black,
-        title: Text(
-          'Weather',
-          style: AppTextStyles.whiteS18W200,
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            onPressed: () async {
-              AppNavigator.pop() as Coordinate?;
-            },
-            icon: const Icon(
-              Icons.search,
-              color: AppColors.white,
-              size: 26,
-            ),
-          ),
-        ],
-      ),
-      body: BlocConsumer(
+    return Hero(
+      tag: 'hero${widget.indexHero}',
+      child: BlocConsumer(
         bloc: _weatherCubit,
         listener: (BuildContext context, WeatherState state) {
           // listenAction(state.loadingStatus);
         },
-        builder: ((BuildContext context, WeatherState state) {
-          return SafeArea(
-            child: (state.coordinate != null &&
-                    state.weather != null &&
-                    state.forecasts != null &&
-                    state.loadingStatus != LoadingStatus.loading)
-                ? SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        CurrentWeatherVerticalWidget(
-                          coordinate: state.coordinate!,
-                          currentWeather: state.weather!,
-                        ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        TodayForecastWidget(
-                          forecasts: state.forecasts!,
-                        ),
-                        SizedBox(
-                          height: 30.h,
-                        ),
-                        ComingDaysForecastWidget(forecasts: state.forecasts!),
-                      ],
+        builder: (BuildContext context, WeatherState state) {
+          return Material(
+            color: Colors.transparent,
+            child: Scaffold(
+              backgroundColor: AppColors.black,
+              appBar: AppBar(
+                backgroundColor: AppColors.black,
+                title: Text(
+                  'Weather',
+                  style: AppTextStyles.whiteS18W200,
+                ),
+                leading: IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {},
+                ),
+                actions: [
+                  IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () async {
+                      AppNavigator.pop() as Coordinate?;
+                    },
+                    icon: const Icon(
+                      Icons.search,
+                      color: AppColors.white,
+                      size: 26,
                     ),
-                  )
-                : const Center(child: CircularProgressIndicator()),
+                  ),
+                ],
+              ),
+              body: SafeArea(
+                child: (state.coordinate != null &&
+                        state.weather != null &&
+                        state.forecasts != null &&
+                        state.loadingStatus != LoadingStatus.loading)
+                    ? SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            CurrentWeatherVerticalWidget(
+                              coordinate: state.coordinate!,
+                              currentWeather: state.weather!,
+                            ),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            TodayForecastWidget(
+                              forecasts: state.forecasts!,
+                            ),
+                            SizedBox(
+                              height: 30.h,
+                            ),
+                            ComingDaysForecastWidget(
+                                forecasts: state.forecasts!),
+                          ],
+                        ),
+                      )
+                    : const Center(child: CircularProgressIndicator()),
+              ),
+            ),
           );
-        }),
+        },
       ),
     );
   }

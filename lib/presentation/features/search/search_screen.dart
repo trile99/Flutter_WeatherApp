@@ -91,14 +91,20 @@ class _SearchScreenState extends State<SearchScreen> {
                               _weatherCubit.updateDisplayWeatherByCoordinate(
                                   state.coordinateList![index]);
                               AppNavigator.pushNamed(RouterName.weather,
-                                  arguments: state.coordinateList![index]);
+                                  arguments: index);
                             },
-                            child: CurrentWeatherHorizontalWidget(
-                              coordinate: state.coordinateList![index],
-                              currentWeather: state.weatherList![index],
-                              widgetColor: index % 2 == 0
-                                  ? AppColors.red
-                                  : AppColors.blue,
+                            child: Hero(
+                              tag: 'hero$index',
+                              child: Material(
+                                color: Colors.transparent,
+                                child: CurrentWeatherHorizontalWidget(
+                                  coordinate: state.coordinateList![index],
+                                  currentWeather: state.weatherList![index],
+                                  widgetColor: index % 2 == 0
+                                      ? AppColors.red
+                                      : AppColors.blue,
+                                ),
+                              ),
                             ),
                           );
                         },

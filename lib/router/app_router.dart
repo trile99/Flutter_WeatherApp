@@ -8,7 +8,6 @@ import 'package:weather_app/presentation/features/weather/weather_screen.dart';
 class RouterName {
   static const String home = '/home';
   static const String login = '/login';
-  static const String joke = '/getJoke';
   static const String weather = '/weather';
   static const String search = '/search';
 }
@@ -23,14 +22,17 @@ class AppRoutes {
         return _materialRoute(settings, const HomePage(title: 'Flutter Demo'));
       case RouterName.login:
         return _materialRoute(settings, const LoginPage());
-      case RouterName.joke:
-        return _materialRoute(settings, const WeatherScreen());
       case RouterName.weather:
-        return _materialRoute(settings, const WeatherScreen());
+        return _pageRouteBuilderWithFadeEffect(
+            settings,
+            WeatherScreen(
+              indexHero: settings.arguments as int?,
+            ));
       case RouterName.search:
         return _materialRoute(settings, const SearchScreen());
+      default:
+        return _materialRoute(settings, const SearchScreen());
     }
-    return null;
   }
 
   static Route<dynamic> _materialRoute(RouteSettings settings, Widget view) {
@@ -82,6 +84,7 @@ class AppRoutes {
     return PageRouteBuilder<dynamic>(
       settings: settings,
       opaque: false,
+      transitionDuration: const Duration(milliseconds: 1000),
       pageBuilder: (
         BuildContext context,
         Animation<double> animation,
@@ -94,8 +97,17 @@ class AppRoutes {
         Animation<double> secondaryAnimation,
         Widget child,
       ) {
+        const double begin = 0.0;
+        const double end = 1.0;
+        const Curve curve = Curves.easeInSine;
+
+        final Animatable<double> tween = Tween<double>(
+          begin: begin,
+          end: end,
+        ).chain(CurveTween(curve: curve));
+
         return FadeTransition(
-          opacity: animation,
+          opacity: animation.drive(tween),
           child: child,
         );
       },
