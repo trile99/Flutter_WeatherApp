@@ -23,11 +23,7 @@ class AppRoutes {
       case RouterName.login:
         return _materialRoute(settings, const LoginPage());
       case RouterName.weather:
-        return _pageRouteBuilderWithFadeEffect(
-            settings,
-            WeatherScreen(
-              indexHero: settings.arguments as int?,
-            ));
+        return _pageRouteBuilderWithFadeEffect(settings, const WeatherScreen());
       case RouterName.search:
         return _materialRoute(settings, const SearchScreen());
       default:

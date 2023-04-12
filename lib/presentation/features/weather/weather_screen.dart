@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weather_app/common/extensions/build_context_extension.dart';
 import 'package:weather_app/common/resources/app_colors.dart';
 import 'package:weather_app/common/resources/app_text_styles.dart';
 import 'package:weather_app/domain/entities/coordinate/coordinate.dart';
@@ -15,12 +16,7 @@ import 'package:weather_app/presentation/features/weather/widgets/today_forecast
 import 'package:weather_app/router/navigator.dart';
 
 class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({
-    super.key,
-    this.indexHero,
-  });
-
-  final int? indexHero;
+  const WeatherScreen({super.key});
 
   @override
   State<WeatherScreen> createState() => _WeatherScreenState();
@@ -31,8 +27,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final int indexHero = context.getRouteArguments();
     return Hero(
-      tag: 'hero${widget.indexHero}',
+      tag: 'hero$indexHero',
       child: BlocConsumer(
         bloc: _weatherCubit,
         listener: (BuildContext context, WeatherState state) {
