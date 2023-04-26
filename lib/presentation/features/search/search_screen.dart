@@ -44,6 +44,10 @@ class _SearchScreenState extends State<SearchScreen> {
                   'Weather',
                   style: AppTextStyles.whiteS30W600,
                 ),
+                Text(
+                  'Weather',
+                  style: AppTextStyles.whiteS30W600,
+                ),
                 SizedBox(
                   height: 10.h,
                 ),
